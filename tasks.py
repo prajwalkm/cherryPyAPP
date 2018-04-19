@@ -28,12 +28,15 @@ from models import RedisDb
 def getBhavData():
 	try:
 		url="https://www.bseindia.com/markets/equity/EQReports/BhavCopyDebt.aspx?expandable=3&utm_campaign=website&utm_source=sendgrid.com&utm_medium=email"
+		try:
+			opts = Options()
+			opts.set_headless()
+			browser = Firefox(executable_path="/home/prajwal/project/cherryApp/geckodriver",options=opts)
+			browser.get(url)
+		except:
+			print('failed to connect firefox')
 		
-		opts = Options()
-		opts.set_headless()
-		browser = Firefox(executable_path="/home/prajwal/project/cherryApp/geckodriver",options=opts)
 		
-		browser.get(url)
 		
 		#gets iframe element using xpath
 		iframeElements = browser.find_elements_by_xpath('/html/body/form/div[3]/div/div[3]/div[2]/div/div[2]/div/div/table/tbody/tr/td/iframe')
